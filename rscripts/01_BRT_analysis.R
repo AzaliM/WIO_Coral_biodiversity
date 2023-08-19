@@ -28,7 +28,7 @@ library(dismo)
 
 Coral_sum <- read.csv(here("data", "CoralBiodiversityWIODataCoral.csv"))
 
-View(Coral_sum)
+#View(Coral_sum)
 
 ## Uncorrelated set of variables with relationships with coral biodiversity
 
@@ -147,7 +147,7 @@ hyper_grid_gbm %>%
 set.seed(423)
 
 
-gbm.final.tuned <- gbm(
+model1_train <- gbm(
   formula = Number_of_genera ~ .,
   distribution = "poisson",
   data = Coral_train_selected,
@@ -163,7 +163,7 @@ gbm.final.tuned <- gbm(
 )  
 
 
-varimp.gbm1 <- vip(gbm.final.tuned, num_features =29, aesthetics = list(fill = "blue", color= "grey70")) + theme_bw() + geom_hline(yintercept = 100/29, lty=2) + labs(y="Importance, %", x= "Independent variables", subtitle = "CoralBRT1")
+varimp.gbm1 <- vip(model1_train, num_features =29, aesthetics = list(fill = "blue", color= "grey70")) + theme_bw() + geom_hline(yintercept = 100/29, lty=2) + labs(y="Importance, %", x= "Independent variables", subtitle = "CoralBRT1")
 
 varimp.gbm1
 
@@ -176,7 +176,7 @@ Coral_test_selected <- as.data.frame(Coral_test_selected)
 Coral_test_selected <- Coral_test_selected %>% 
   mutate_if(is.character,as.factor)
 
-preds1 <- predict(gbm.final.tuned, Coral_test_selected, type="response")
+preds1 <- predict(model1_train, Coral_test_selected, type="response")
 
 
 dev1 <- dismo::calc.deviance(Coral_test_selected$Number_of_genera,preds1,calc.mean=T, family = "poisson")%>% round(2)
@@ -208,7 +208,7 @@ dim(Coral_train_selected2)
 set.seed(123)
 
 
-gbm.final.tuned2 <- gbm(
+model2_train <- gbm(
   formula = Number_of_genera ~ .,
   distribution = "poisson",
   data = Coral_train_selected2,
@@ -224,7 +224,7 @@ gbm.final.tuned2 <- gbm(
 )  
 
 
-varimp.gbm2 <- vip(gbm.final.tuned2, num_features =27, aesthetics = list(fill = "blue", color= "grey70")) + theme_bw() + geom_hline(yintercept = 100/27, lty=2) + labs(y="Importance, %", x= "Independent variables", subtitle = "CoralBRT1")
+varimp.gbm2 <- vip(model2_train, num_features =27, aesthetics = list(fill = "blue", color= "grey70")) + theme_bw() + geom_hline(yintercept = 100/27, lty=2) + labs(y="Importance, %", x= "Independent variables", subtitle = "CoralBRT1")
 
 varimp.gbm2
 
@@ -234,7 +234,7 @@ Coral_test_selected2 <- as.data.frame(Coral_test_selected2)
 Coral_test_selected2 <- Coral_test_selected2 %>% 
   mutate_if(is.character,as.factor)
 
-preds2 <- predict(gbm.final.tuned2, Coral_test_selected2, type="response")
+preds2 <- predict(model2_train, Coral_test_selected2, type="response")
 
 
 dev2 <- calc.deviance(Coral_test_selected2$Number_of_genera,preds2,calc.mean=T, family = "poisson")%>% round(2)
@@ -268,7 +268,7 @@ Coral_selected <- Coral_selected %>%
 set.seed(423)
 
 
-gbm.final.tuned.full <- gbm(
+model1_full <- gbm(
   formula = Number_of_genera ~ .,
   distribution = "poisson",
   data = Coral_selected,
@@ -285,7 +285,7 @@ gbm.final.tuned.full <- gbm(
 
 
 
-varimp.gbm1.full <- vip(gbm.final.tuned.full, num_features =26, aesthetics = list(fill = "blue", color= "grey70")) + theme_bw() + geom_hline(yintercept = 100/26, lty=2) + labs(y="Importance, %", x= "Independent variables", subtitle = "Coral diversity predictors set1")
+varimp.gbm1.full <- vip(model1_full, num_features =26, aesthetics = list(fill = "blue", color= "grey70")) + theme_bw() + geom_hline(yintercept = 100/26, lty=2) + labs(y="Importance, %", x= "Independent variables", subtitle = "Coral diversity predictors set1")
 
 varimp.gbm1.full
 
@@ -297,7 +297,7 @@ Coral_selected <- as.data.frame(Coral_selected)
 Coral_selected <- Coral_selected %>% 
   mutate_if(is.character,as.factor)
 
-preds3 <- predict(gbm.final.tuned.full, Coral_selected, type="response")
+preds3 <- predict(model1_full, Coral_selected, type="response")
 
 
 dev3 <- calc.deviance(Coral_selected$Number_of_genera,preds3,calc.mean=T, family = "poisson")%>% round(2)
@@ -330,7 +330,7 @@ dim(Coral_selected2)
 set.seed(123)
 
 
-gbm.final.tuned2.full <- gbm(
+model2_full <- gbm(
   formula = Number_of_genera ~ .,
   distribution = "poisson",
   data = Coral_selected2,
@@ -346,7 +346,7 @@ gbm.final.tuned2.full <- gbm(
 )  
 
 
-varimp.gbm2.full <- vip(gbm.final.tuned2.full, num_features =27, aesthetics = list(fill = "blue", color= "grey70")) + theme_bw() + geom_hline(yintercept = 100/27, lty=2) + labs(y="Importance, %", x= "Independent variables", subtitle = "Coral diversity predictors set2")
+varimp.gbm2.full <- vip(model2_full, num_features =27, aesthetics = list(fill = "blue", color= "grey70")) + theme_bw() + geom_hline(yintercept = 100/27, lty=2) + labs(y="Importance, %", x= "Independent variables", subtitle = "Coral diversity predictors set2")
 
 varimp.gbm2.full
 
@@ -359,7 +359,7 @@ Coral_selected2 <- as.data.frame(Coral_selected2)
 Coral_selected2 <- Coral_selected2 %>% 
   mutate_if(is.character,as.factor)
 
-preds4 <- predict(gbm.final.tuned2.full, Coral_selected2, type="response")
+preds4 <- predict(model2_full, Coral_selected2, type="response")
 
 
 dev4 <- calc.deviance(Coral_selected2$Number_of_genera,preds4,calc.mean=T, family = "poisson")%>% round(2)
@@ -420,7 +420,7 @@ Coral_selectedHum <- Coral_selectedHum %>%
 
 set.seed(423)
 
-gbm.Climrich <- gbm(
+model_climatevars_full <- gbm(
   formula = Number_of_genera ~ .,
   distribution = "poisson",
   data = Coral_selectedClim,
@@ -434,14 +434,14 @@ gbm.Climrich <- gbm(
   n.cores = NULL, # will use all cores by default
   verbose = FALSE
 )  
-summary(gbm.Climrich)
+summary(model_climatevars_full)
 
 
 ### Human variables
 
 set.seed(423)
 
-gbm.Humrich <- gbm(
+model_humanvars_full <- gbm(
   formula = Number_of_genera ~ .,
   distribution = "poisson",
   data = Coral_selectedHum,
@@ -455,13 +455,13 @@ gbm.Humrich <- gbm(
   n.cores = NULL, # will use all cores by default
   verbose = FALSE
 )  
-summary(gbm.Humrich)
+summary(model_humanvars_full)
 
 
 
 ### Model validation
 
-preds5 <- predict(gbm.Climrich, Coral_selectedClim, type="response")
+preds5 <- predict(model_climatevars_full, Coral_selectedClim, type="response")
 
 
 dev5 <- calc.deviance(Coral_selectedClim$Number_of_genera,preds5,calc.mean=T, family = "poisson")%>% round(2)
@@ -481,7 +481,7 @@ Modelvalidation[5,6] <- rmse5
 
 
 
-preds6 <- predict(gbm.Humrich, Coral_selectedHum, type="response")
+preds6 <- predict(model_humanvars_full, Coral_selectedHum, type="response")
 
 
 dev6 <- calc.deviance(Coral_selectedHum$Number_of_genera,preds6,calc.mean=T, family = "poisson")%>% round(2)
@@ -517,7 +517,7 @@ Coral_selectedClim_test <- Coral_selectedClim_test %>%
 
 set.seed(423)
 
-gbm.Climrich_train <- gbm(
+model_climatevars_train <- gbm(
   formula = Number_of_genera ~ .,
   distribution = "poisson",
   data = Coral_selectedClim_train,
@@ -533,7 +533,7 @@ gbm.Climrich_train <- gbm(
 )  
 
 
-preds7 <- predict(gbm.Climrich_train, Coral_selectedClim_test, type="response")
+preds7 <- predict(model_climatevars_train, Coral_selectedClim_test, type="response")
 
 
 dev7 <- calc.deviance(Coral_selectedClim_test$Number_of_genera,preds7,calc.mean=T, family = "poisson")%>% round(2)
@@ -571,7 +571,7 @@ Coral_selectedHum_test <- Coral_selectedHum_test %>%
 
 set.seed(423)
 
-gbm.Humrich_train <- gbm(
+model_humanvars_train <- gbm(
   formula = Number_of_genera ~ .,
   distribution = "poisson",
   data = Coral_selectedHum_train,
@@ -585,12 +585,12 @@ gbm.Humrich_train <- gbm(
   n.cores = NULL, # will use all cores by default
   verbose = FALSE
 )  
-summary(gbm.Humrich_train)
+summary(model_humanvars_train)
 
-gbm.perf(gbm.Humrich_train, method = "cv")
+gbm.perf(model_humanvars_train, method = "cv")
 
 
-preds8 <- predict(gbm.Humrich_train, Coral_selectedHum_test, type="response")
+preds8 <- predict(model_humanvars_train, Coral_selectedHum_test, type="response")
 
 
 dev8 <- calc.deviance(Coral_selectedHum_test$Number_of_genera,preds8,calc.mean=T, family = "poisson")%>% round(2)
@@ -609,7 +609,7 @@ Modelvalidation[8,6] <- rmse8
 
 ## Save models for later use
 
-obj_names <- ls(.GlobalEnv, pattern = "^gbm.")
+obj_names <- ls(.GlobalEnv, pattern = "^model.")
 
 savemodels <- function(x) {
   for(i in 1:length(x)) {
@@ -621,5 +621,5 @@ savemodels <- function(x) {
 savemodels(obj_names)
 
 
-
-write_rds(Modelvalidation, file = here("outputs","modelvalidationcorals.rds"))
+# save model perfomance results
+write_rds(Modelvalidation, file = here("models","modelvalidationcorals.rds"))
