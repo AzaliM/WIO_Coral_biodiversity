@@ -1,0 +1,38 @@
+var,Model 1,Model 2,Climate variables,Human variables
+Observer,15.6,14.9,NA,NA
+Depth,9,9.3,15.2,NA
+cumDHW,6.9,NA,14.6,NA
+SST_Kurtosis,5.4,NA,11,NA
+mean.waveNRJ,5,4,NA,NA
+Dis_oxygen,4.2,2.4,NA,NA
+Salinity_mean,4.1,2.1,NA,NA
+ChlorA_median,3.9,NA,NA,NA
+Country,3.9,3.2,NA,18.4
+andrello_reef_value,3.8,3,NA,13.4
+Calcite,3.7,3.7,NA,NA
+SSTRateofRise,3.4,3.5,16.4,NA
+TT_market_hrs,3.2,NA,NA,11.1
+PARmax,3.2,3.5,NA,NA
+Retention,2.7,2.6,NA,NA
+Indegree,2.5,1.6,NA,NA
+Habitat,2.4,2.4,NA,NA
+mean.npp,2.2,NA,NA,NA
+Netflow,2,1.6,NA,NA
+Ecoregion,2,0.2,NA,NA
+SST_Median,2,NA,8.2,NA
+TT_pop_hrs,1.9,NA,NA,7.4
+Outdegree,1.9,1.6,NA,NA
+Coralcover,1.9,1.8,5.7,NA
+Management,1.8,1.5,NA,5.8
+andrello_nutrients,1.5,NA,NA,9
+SST_Skewness,NA,7.4,19.1,NA
+Current_vel_mean,NA,7.4,NA,NA
+ClimateStressModel,NA,6,NA,NA
+PH,NA,3.4,NA,NA
+Grav_NC,NA,3,NA,11
+Grav_NP,NA,3,NA,13.5
+Diff_attenuation,NA,2.6,NA,NA
+andrello_sediments,NA,2,NA,10.4
+SST_bimodality,NA,2,9.8,NA
+70% training and 30% testing,0.46,0.45,0.42,0.41
+Full data,0.82,0.82,0.7,0.62
